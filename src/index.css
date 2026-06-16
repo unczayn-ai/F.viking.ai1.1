@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  --font-body: "Hanken Grotesk", sans-serif;
+  --font-heading: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background: #000;
+  color: white;
+  font-family: var(--font-body);
+}
+
+.heading-font {
+  font-family: var(--font-heading);
+}
+
+.mono-font {
+  font-family: var(--font-mono);
+}
