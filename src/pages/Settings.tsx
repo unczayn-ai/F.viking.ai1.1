@@ -1,7 +1,10 @@
 import Card from "../components/ui/Card";
 import { settingsData } from "../data/settings";
+import { useAuth } from "../context/AuthContext";
 
 export default function Settings() {
+  const { user, logout } = useAuth();
+
   return (
     <div className="mt-10">
       <div className="mb-6">
@@ -19,21 +22,19 @@ export default function Settings() {
           <div className="font-mono text-sm space-y-3">
             <p>
               NAME:
-              <span className="text-neutral-400 ml-2">
-                {settingsData.profile.name}
-              </span>
+              <span className="text-neutral-400 ml-2">{user?.name}</span>
+            </p>
+            <p>
+              EMAIL:
+              <span className="text-neutral-400 ml-2">{user?.email}</span>
             </p>
             <p>
               ROLE:
-              <span className="text-neutral-400 ml-2">
-                {settingsData.profile.role}
-              </span>
+              <span className="text-neutral-400 ml-2">{user?.role}</span>
             </p>
             <p>
-              LEVEL:
-              <span className="text-neutral-400 ml-2">
-                {settingsData.profile.level}
-              </span>
+              PHASE:
+              <span className="text-neutral-400 ml-2">{user?.phase}</span>
             </p>
           </div>
         </Card>
@@ -92,6 +93,13 @@ export default function Settings() {
           </div>
         </Card>
       </div>
+
+      <button
+        onClick={logout}
+        className="mt-10 rounded font-mono text-red-400 text-sm bg-neutral-900 px-8 py-3 cursor-pointer hover:text-white"
+      >
+        LOGOUT
+      </button>
     </div>
   );
 }

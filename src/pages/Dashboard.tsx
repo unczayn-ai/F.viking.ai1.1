@@ -1,3 +1,4 @@
+import { useAuth } from "../context/AuthContext";
 import { dashboardData } from "../data/dashboard";
 import Card from "../components/ui/Card";
 import StatCard from "../components/ui/StateCard";
@@ -5,8 +6,11 @@ import ActivityTable from "../components/ui/ActivityTable";
 import { Bot } from "lucide-react";
 
 export default function Dashboard() {
+  const { user } = useAuth();
+
   return (
     <div>
+      <h1>Welcome, {user?.name}</h1>
       <div className="grid grid-cols-12 gap-6 mt-10">
         <Card className="flex flex-col justify-between col-span-12 lg:col-span-8 min-h-80">
           <div className="flex justify-between items-start">

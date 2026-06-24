@@ -2,8 +2,10 @@ import Card from "./Card";
 import Badge from "./Badge";
 import ProgressBar from "./ProgressBar";
 import { Bot } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface GoalProps {
+  _id: string;
   title: string;
   description: string;
   priority: string;
@@ -12,9 +14,11 @@ interface GoalProps {
   milestones: string;
   velocity: string;
   streak: string;
+  onDelete: (id: string) => void;
 }
 
 export default function GoalCard({
+  _id,
   title,
   description,
   priority,
@@ -23,6 +27,7 @@ export default function GoalCard({
   milestones,
   velocity,
   streak,
+  onDelete,
 }: GoalProps) {
   return (
     <Card>
@@ -47,7 +52,7 @@ export default function GoalCard({
         <ProgressBar value={progress} />
       </div>
 
-      <div className="grid grid-cols-3 border-t border-neutral-800 mt-6 pt-5 text-sm">
+      <div className="grid grid-cols-4 border-t border-neutral-800 mt-6 pt-5 text-sm">
         <div>
           <p className="text-neutral-500 text-xs">MILESTONES</p>
           <p>{milestones}</p>
@@ -61,6 +66,21 @@ export default function GoalCard({
         <div>
           <p className="text-neutral-500 text-xs">STREAK</p>
           <p>{streak}</p>
+        </div>
+
+        <div className="flex justify-center items-center gap-3">
+          <Link
+            to={`/editgoal/${_id}`}
+            className="border border-neutral-400 rounded bg-neutral-800 font-mono text-neutral-200 text-sm px-6 py-2 hover:bg-neutral-200 hover:text-neutral-800"
+          >
+            EDIT
+          </Link>
+          <button
+            onClick={() => onDelete(_id)}
+            className="border border-red-800 rounded bg-neutral-800 font-mono text-red-400 text-sm hover:text-black hover:bg-white px-8 py-2"
+          >
+            DELETE
+          </button>
         </div>
       </div>
     </Card>

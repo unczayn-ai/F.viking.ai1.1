@@ -8,8 +8,8 @@ import {
   Bot,
   Settings,
 } from "lucide-react";
-
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const items = [
   { name: "Dashboard", icon: LayoutDashboard, path: "/" },
@@ -35,41 +35,50 @@ export default function SideBar() {
         {items.map((item) => {
           const Icon = item.icon;
           return (
-            <Link
+            <NavLink
               key={item.name}
               to={item.path}
-              className="flex items-center space-x-3 text-white font-bold border-l-2 border-neutral-400 pl-4 py-3 hover:bg-neutral-800 transition"
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-white font-bold border-l-2 border-neutral-400 pl-4 py-3 hover:bg-neutral-800 transition ${isActive ? "bg-neutral-800" : "bg-black hover:bg-neutral-900"}`
+              }
             >
               <Icon size={24} />
               <span className="font-mono font-extrabold text-sm">
                 {item.name}
               </span>
-            </Link>
+            </NavLink>
           );
         })}
       </nav>
 
       <div className="mt-auto space-y-4 mb-8">
         <div className="px-4">
-          <button className="w-full flex items-center justify-center bg-white text-black text-sm font-mono font-extrabold py-3 space-x-2 transition-all active:scale-95 hover:opacity-90">
+          <NavLink
+            to="/newgoal"
+            className="w-full flex items-center justify-center bg-white text-black text-sm font-mono font-extrabold py-3 space-x-2 transition-all active:scale-95 hover:opacity-90"
+          >
             NEW GOAL
-          </button>
+          </NavLink>
         </div>
         <div className="px-4 mt-auto border-t border-neutral-600 pt-6 space-y-2">
-          <Link
+          <NavLink
             to="/coach"
-            className="flex items-center gap-3 text-neutral-400 px-8 py-2 hover:bg-neutral-800"
+            className={({ isActive }) =>
+              `flex items-center gap-3 text-neutral-400 px-8 py-2 ${isActive ? "bg-neutral-800" : "bg-black hover:bg-neutral-800"}`
+            }
           >
             <Bot size={24} />
             Coach
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/settings"
-            className="flex items-center gap-3 text-neutral-400 px-8 py-2 hover:bg-neutral-800"
+            className={({ isActive }) =>
+              `flex items-center gap-3 text-neutral-400 px-8 py-2 ${isActive ? "bg-neutral-800" : "bg-black hover:bg-neutral-800"}`
+            }
           >
             <Settings size={24} />
             Settings
-          </Link>
+          </NavLink>
         </div>
       </div>
     </aside>

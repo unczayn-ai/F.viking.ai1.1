@@ -1,5 +1,6 @@
 import { Search, Bell } from "lucide-react";
 import Profile1 from "../../assets/pf1.jpg";
+import { Link } from "react-router-dom";
 
 export default function Topbar() {
   return (
@@ -19,13 +20,15 @@ export default function Topbar() {
           ⚡ 12 DAY STREAK
         </div>
         <Bell size={18} />
-        <div className="w-8 h-8 bg-neutral-800">
-          <img
-            alt="Developer Profile"
-            className="w-full h-full object-cover overflow-hidden"
-            src={Profile1}
-          />
-        </div>
+        <Link to="/settings">
+          <div className="w-8 h-8 bg-neutral-800">
+            <img
+              alt="Developer Profile"
+              className="w-full h-full object-cover overflow-hidden"
+              src={Profile1}
+            />
+          </div>
+        </Link>
       </div>
     </header>
   );

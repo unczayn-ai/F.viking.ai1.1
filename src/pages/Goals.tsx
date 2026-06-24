@@ -1,11 +1,15 @@
+import { Link } from "react-router-dom";
 import Card from "../components/ui/Card";
 import GoalCard from "../components/ui/GoalCard";
 import ProgressBar from "../components/ui/ProgressBar";
+import useGoals from "../hooks/useGoals";
 import { goalsData } from "../data/goals";
 import { plannerData } from "../data/goals";
 import { metricsData } from "../data/goals";
 
 export default function Goals() {
+  const { goals, loading, deleteGoal } = useGoals();
+
   return (
     <div>
       <div className="flex justify-between mb-10 mt-10">
@@ -18,11 +22,15 @@ export default function Goals() {
 
         <div className="h-12 flex justify-between gap-4">
           <button className="bg-black text-white text-xs border border-neutral-800 px-6 py-3 font-bold hover:bg-neutral-800 cursor-pointer">
-            CREATE TARGET
+            EXPORT DATA
           </button>
-          <button className="bg-white text-black text-xs px-6 py-3 font-bold hover:opacity-75 cursor-pointer">
+
+          <Link
+            to="/newgoal"
+            className="bg-white text-black flex items-center text-xs px-6 py-2 font-bold hover:opacity-75 cursor-pointer"
+          >
             CREATE TARGET
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -30,9 +38,25 @@ export default function Goals() {
         <div className="col-span-12 lg:col-span-8 space-y-6">
           <h3 className="text-xs tracking-widest font-bold">PRIORITY QUEUE</h3>
 
-          {goalsData.goals.map((goal) => (
-            <GoalCard key={goal.title} {...goal} />
-          ))}
+          {loading && (
+            <div className="border border-neutral-800 p-6 font-mono text-sm text-neutral-400">
+              LOADING GOALS...
+            </div>
+          )}
+
+          {!loading && goals.length === 0 && (
+            <div className="border border-neutral-800 p-6">
+              <h3 className="font-bold">NO ACTIVE GOAL</h3>
+              <p className="text-neutral-500 text-sm mt-2">
+                Create your first mission to begin tracking progress
+              </p>
+            </div>
+          )}
+
+          {!loading &&
+            goals.map((goal) => (
+              <GoalCard key={goal._id} {...goal} onDelete={deleteGoal} />
+            ))}
         </div>
 
         <div className="col-span-12 lg:col-span-4">
