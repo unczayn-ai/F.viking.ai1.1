@@ -11,11 +11,13 @@ export default function EditGoal() {
 
   const [title, setTitle] = useState(goal?.title || "");
   const [description, setDescription] = useState(goal?.description || "");
+  const [progress, setProgress] = useState(goal?.progress);
 
   const handleUpdate = async () => {
     await updateGoal(id!, {
       title,
       description,
+      progress,
     });
 
     navigate("/goals");
@@ -37,6 +39,20 @@ export default function EditGoal() {
           onChange={(e) => setDescription(e.target.value)}
           className="bg-black border border-neutral-800 font-mono text-sm w-full p-3 pb-6"
         />
+
+        <div>
+          <label className="text-xs text-neutral-400">
+            Progress: {progress}%
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={progress}
+            onChange={(e) => setProgress(Number(e.target.value))}
+            className="w-full mt-3"
+          />
+        </div>
       </Card>
       <button
         onClick={handleUpdate}

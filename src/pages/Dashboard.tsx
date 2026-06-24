@@ -10,7 +10,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1>Welcome, {user?.name}</h1>
+      <h1 className="font-mono text-sm">Welcome, {user?.name}</h1>
       <div className="grid grid-cols-12 gap-6 mt-10">
         <Card className="flex flex-col justify-between col-span-12 lg:col-span-8 min-h-80">
           <div className="flex justify-between items-start">

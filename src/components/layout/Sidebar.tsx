@@ -9,7 +9,6 @@ import {
   Settings,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
 
 const items = [
   { name: "Dashboard", icon: LayoutDashboard, path: "/" },
