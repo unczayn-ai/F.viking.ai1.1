@@ -56,10 +56,19 @@ export default function Register() {
         />
         <button
           onClick={handleRegister}
-          className="mt-5 bg-white border border-neutral-800 rounded text-sm text-black px-8 py-2"
+          className="mt-5 font-mono bg-white border border-neutral-800 rounded text-sm text-black px-8 py-2"
         >
           REGISTER
         </button>
+        <p className="mt-5 font-mono text-sm text-neutral-500">
+          Already have an account?{" "}
+        </p>
+        <a
+          href="/login"
+          className="border border-neutral-800 rounded bg-white text-black px-4 py-1"
+        >
+          Sign In
+        </a>
       </Card>
     </div>
   );
