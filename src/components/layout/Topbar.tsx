@@ -1,5 +1,5 @@
 import { Search, Bell } from "lucide-react";
-import Profile1 from "../../assets/pf1.jpg";
+import Profile1 from "../assets/pf1.jpg";
 import { Link } from "react-router-dom";
 
 export default function Topbar() {

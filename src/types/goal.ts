@@ -5,7 +5,11 @@ export interface Goal {
   priority: string;
   progress: number;
   deadline: string;
-  milestones: string;
+  milestones: {
+    title: string;
+    completed: boolean;
+    completedAt?: string;
+  }[];
   velocity: string;
   streak: string;
 }
