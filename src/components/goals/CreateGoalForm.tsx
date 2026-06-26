@@ -16,12 +16,13 @@ export default function CreateGoalForm({
       title,
       description,
       priority: "HIGH",
-      progress: 0,
       deadline: "T-30 Days",
-      milestones: milestones.map((item) => ({
-        title: item,
-        completed: false,
-      })),
+      milestones: milestones
+        .filter((item) => item.trim() !== "")
+        .map((item) => ({
+          title: item,
+          completed: false,
+        })),
       velocity: "0%",
       streak: "0 Days",
     });

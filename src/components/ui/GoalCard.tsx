@@ -11,7 +11,12 @@ interface GoalProps {
   priority: string;
   progress: number;
   deadline: string;
-  milestones: string;
+  milestones: {
+    _id: string;
+    title: string;
+    completed: boolean;
+    completedAt?: Date;
+  }[];
   velocity: string;
   streak: string;
   onDelete: (id: string) => void;
@@ -55,7 +60,16 @@ export default function GoalCard({
       <div className="grid grid-cols-4 border-t border-neutral-800 mt-6 pt-5 text-sm">
         <div>
           <p className="text-neutral-500 text-xs">MILESTONES</p>
-          <p>{milestones}</p>
+          <div className="space-y-1">
+            {milestones.map((milestone) => (
+              <p
+                key={milestone._id}
+                className={milestone._id ? "line-through text-neutral-500" : ""}
+              >
+                {milestone.completed ? "✓" : "○"} {milestone.title}
+              </p>
+            ))}
+          </div>
         </div>
 
         <div>
