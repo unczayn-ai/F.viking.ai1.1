@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useGoals from "../hooks/useGoals";
 import Card from "../components/ui/Card";
@@ -9,16 +9,65 @@ export default function EditGoal() {
   const { goals, updateGoal } = useGoals();
   const goal = goals.find((item) => item._id === id);
 
+  const [saving, setSaving] = useState(false);
   const [title, setTitle] = useState(goal?.title || "");
   const [description, setDescription] = useState(goal?.description || "");
-  const [progress, setProgress] = useState(goal?.progress);
+  const [milestones, setMilestones] = useState(goal?.milestones || []);
+  const [newMilestone, setNewMilestone] = useState("");
+
+  useEffect(() => {
+    if (goal) {
+      setTitle(goal.title);
+      setDescription(goal.description);
+      setMilestones(goal.milestones);
+    }
+  }, [goal]);
+
+  const toggleMilestone = (index: number) => {
+    const updated = milestones.map((item, i) => {
+      if (i === index) {
+        return {
+          ...item,
+          completed: !item.completed,
+        };
+      }
+
+      return item;
+    });
+
+    setMilestones(updated);
+  };
+
+  const addMilestone = () => {
+    if (!newMilestone.trim()) return;
+
+    setMilestones([
+      ...milestones,
+      {
+        title: newMilestone,
+        completed: false,
+      },
+    ]);
+
+    setNewMilestone("");
+  };
+
+  const deleteMilestone = (index: number) => {
+    const updated = milestones.filter((_, i) => i !== index);
+
+    setMilestones(updated);
+  };
 
   const handleUpdate = async () => {
+    setSaving(true);
+
     await updateGoal(id!, {
       title,
       description,
-      progress,
+      milestones,
     });
+
+    setSaving(false);
 
     navigate("/goals");
   };
@@ -40,25 +89,57 @@ export default function EditGoal() {
           className="bg-black border border-neutral-800 font-mono text-sm w-full p-3 pb-6"
         />
 
-        <div>
-          <label className="text-xs text-neutral-400">
-            Progress: {progress}%
-          </label>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={progress}
-            onChange={(e) => setProgress(Number(e.target.value))}
-            className="w-full mt-3"
-          />
+        <div className="mt-6 space-y-3">
+          <h3 className="heading-font font-bold">MILESTONES</h3>
+          {milestones.map((item, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center gap-3 border border-neutral-800 p-3"
+            >
+              <div className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={item.completed}
+                  onChange={() => toggleMilestone(index)}
+                />
+                <span
+                  className={
+                    item.completed ? "line-through text-neutral-500" : ""
+                  }
+                >
+                  {item.title}
+                </span>
+              </div>
+              <button
+                onClick={() => deleteMilestone(index)}
+                className="font-mono text-red-400 text-xs"
+              >
+                REMOVE
+              </button>
+            </div>
+          ))}
+
+          <div className="flex gap-3 mt-6">
+            <input
+              value={newMilestone}
+              onChange={(e) => setNewMilestone(e.target.value)}
+              placeholder="new milestone"
+              className="bg-black border border-neutral-800 p-3 flex-1"
+            />
+            <button
+              onClick={addMilestone}
+              className="bg-white font-mono text-black text-xs px-8 font-bold"
+            >
+              ADD
+            </button>
+          </div>
         </div>
       </Card>
       <button
         onClick={handleUpdate}
         className="bg-white rounded text-black px-6 py-3 mt-6"
       >
-        UPDATE
+        {saving ? "UPDATING..." : "UPDATE"}
       </button>
     </div>
   );

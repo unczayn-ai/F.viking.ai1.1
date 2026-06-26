@@ -57,14 +57,16 @@ export default function GoalCard({
         <ProgressBar value={progress} />
       </div>
 
-      <div className="grid grid-cols-4 border-t border-neutral-800 mt-6 pt-5 text-sm">
-        <div>
+      <div className="grid grid-cols-12 border-t border-neutral-800 mt-6 pt-5 text-sm">
+        <div className="col-span-4">
           <p className="text-neutral-500 text-xs">MILESTONES</p>
           <div className="space-y-1">
             {milestones.map((milestone) => (
               <p
                 key={milestone._id}
-                className={milestone._id ? "line-through text-neutral-500" : ""}
+                className={
+                  milestone.completed ? "line-through text-neutral-500" : ""
+                }
               >
                 {milestone.completed ? "✓" : "○"} {milestone.title}
               </p>
@@ -72,26 +74,26 @@ export default function GoalCard({
           </div>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <p className="text-neutral-500 text-xs">VELOCITY</p>
           <p>{velocity}</p>
         </div>
 
-        <div>
+        <div className="col-span-2">
           <p className="text-neutral-500 text-xs">STREAK</p>
           <p>{streak}</p>
         </div>
 
-        <div className="flex justify-center items-center gap-3">
+        <div className="col-span-4 flex justify-center items-center gap-3">
           <Link
             to={`/editgoal/${_id}`}
-            className="border border-neutral-400 rounded bg-neutral-800 font-mono text-neutral-200 text-sm px-6 py-2 hover:bg-neutral-200 hover:text-neutral-800"
+            className="border border-neutral-400 rounded bg-neutral-800 font-mono text-neutral-200 text-xs px-6 py-2 hover:bg-neutral-200 hover:text-neutral-800"
           >
             EDIT
           </Link>
           <button
             onClick={() => onDelete(_id)}
-            className="border border-red-800 rounded bg-neutral-800 font-mono text-red-400 text-sm hover:text-black hover:bg-white px-8 py-2"
+            className="border border-red-800 rounded bg-neutral-800 font-mono text-red-400 text-xs hover:text-black hover:bg-white px-8 py-2"
           >
             DELETE
           </button>
