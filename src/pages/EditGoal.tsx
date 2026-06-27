@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useGoals from "../hooks/useGoals";
+import ActivityHistory from "../components/ui/ActivityHistory";
 import Card from "../components/ui/Card";
 
 export default function EditGoal() {
@@ -135,6 +136,9 @@ export default function EditGoal() {
           </div>
         </div>
       </Card>
+
+      <ActivityHistory activity={goal?.activity || []} />
+
       <button
         onClick={handleUpdate}
         className="bg-white rounded text-black px-6 py-3 mt-6"

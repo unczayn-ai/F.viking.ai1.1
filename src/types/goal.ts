@@ -10,6 +10,11 @@ export interface Goal {
     completed: boolean;
     completedAt?: string;
   }[];
+  activity: {
+    type: string;
+    message: string;
+    createdAt: string;
+  }[];
   velocity: string;
   streak: string;
 }
