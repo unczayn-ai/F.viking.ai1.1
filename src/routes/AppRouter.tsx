@@ -13,6 +13,7 @@ import Register from "../pages/Register";
 import Login from "../pages/Login";
 import CreateGoal from "../pages/CreateGoal";
 import EditGoal from "../pages/EditGoal";
+import AIBreakdown from "../pages/AIBreakdown";
 
 export default function AppRouter() {
   return (
@@ -35,6 +36,7 @@ export default function AppRouter() {
           <Route path="/learning" element={<Learning />} />
           <Route path="/newgoal" element={<CreateGoal />} />
           <Route path="/editgoal/:id" element={<EditGoal />} />
+          <Route path="/goal/:id/breakdown" element={<AIBreakdown />} />
           <Route path="/coach" element={<Coach />} />
           <Route path="/settings" element={<Settings />} />
         </Route>

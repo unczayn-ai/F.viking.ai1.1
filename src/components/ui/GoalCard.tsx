@@ -43,10 +43,13 @@ export default function GoalCard({
           <p className="text-neutral-400 mt-2">{description}</p>
         </div>
 
-        <button className="flex items-center gap-2 h-3 bg-neutral-700 border border-neutral-700 text-xs px-4 py-6 tracking-widest hover:bg-white hover:text-black transition">
+        <Link
+          to={`/goal/${_id}/breakdown`}
+          className="flex items-center gap-2 h-3 bg-neutral-700 border border-neutral-700 text-xs px-4 py-6 tracking-widest hover:bg-white hover:text-black transition"
+        >
           <Bot size={18} />
           AI BREAKDOWN
-        </button>
+        </Link>
       </div>
 
       <div className="mt-8">

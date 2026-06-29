@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Card from "../components/ui/Card";
 import GoalCard from "../components/ui/GoalCard";
 import ProgressBar from "../components/ui/ProgressBar";
@@ -6,9 +7,16 @@ import useGoals from "../hooks/useGoals";
 import { goalsData } from "../data/goals";
 import { plannerData } from "../data/goals";
 import { metricsData } from "../data/goals";
+import GoalAIAnalysis from "../components/ai/GoalAIAnalysis";
 
 export default function Goals() {
-  const { goals, loading, deleteGoal } = useGoals();
+  const { goals, loading, deleteGoal, analyzeGoal } = useGoals();
+  const [analysis, setAnalysis] = useState<any>(null);
+
+  const handleAnalyze = async (id: string) => {
+    const result = await analyzeGoal(id);
+    setAnalysis(result);
+  };
 
   return (
     <div>
@@ -57,6 +65,7 @@ export default function Goals() {
             goals.map((goal) => (
               <GoalCard key={goal._id} {...goal} onDelete={deleteGoal} />
             ))}
+          <GoalAIAnalysis analysis={analysis} />
         </div>
 
         <div className="col-span-12 lg:col-span-4">

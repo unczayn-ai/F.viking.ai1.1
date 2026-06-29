@@ -54,6 +54,18 @@ export default function useGoals() {
     );
   };
 
+  const analyzeGoal = async (id: string) => {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`http://localhost:5000/api/goals/${id}/analyze`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    const data = await res.json();
+    return data;
+  };
+
   const deleteGoal = async (id: string) => {
     const token = localStorage.getItem("token");
 
@@ -64,5 +76,12 @@ export default function useGoals() {
 
     setGoals((prev) => prev.filter((goal) => goal._id !== id));
   };
-  return { goals, loading, deleteGoal, createGoal, updateGoal };
+  return {
+    goals,
+    loading,
+    deleteGoal,
+    createGoal,
+    updateGoal,
+    analyzeGoal,
+  };
 }
